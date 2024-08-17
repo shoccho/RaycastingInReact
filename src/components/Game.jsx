@@ -6,7 +6,7 @@ export const Game = () => {
     const [player, setPlayer] = useState({
         x: 500,
         y: 500,
-        a: 0
+        a: 0,
     });
                        //red  blue green orange
     const hslColors = [-1, 0, 240, 120, 30]
@@ -16,9 +16,9 @@ export const Game = () => {
         [1, 1, 1, 4, 4, 4, 1, 1],
         [1, 0, 0, 0, 0, 0, 0, 1],
         [1, 0, 0, 0, 0, 0, 0, 1],
-        [3, 0, 0, 0, 2, 2, 2, 2],
-        [3, 0, 0, 0, 3, 0, 0, 2],
-        [3, 0, 0, 0, 3, 0, 0, 2],
+        [3, 0, 0, 0, 0, 2, 2, 2],
+        [3, 0, 0, 0, 0, 0, 0, 2],
+        [3, 0, 0, 0, 0, 0, 0, 2],
         [3, 0, 0, 0, 0, 0, 0, 1],
         [1, 1, 1, 1, 1, 1, 1, 1],
     ];
@@ -27,8 +27,14 @@ export const Game = () => {
     const WIDTH = map.length * 100;
     const HEIGHT = map[0].length * 100;
 
-    const castRay = (deg) => {
-        const angle = (deg * Math.PI) / 180;
+    const castRay = (angle) => {
+        if(angle <0){
+            console.log(angle)
+            angle+=2 * Math.PI;
+        }
+        if(angle >2*Math.PI){
+            angle-=2 * Math.PI;
+        }
         const dirX = Math.cos(angle);
         const dirY = Math.sin(angle);
         let px = player.x;
@@ -57,7 +63,7 @@ export const Game = () => {
 
     const getRenderData = () => {
         const data = [];
-        for (let i = player.a - 45; i < player.a + 45; i += .5) {
+        for (let i = player.a -(45* 0.017453); i < player.a +( 45 * 0.017453); i += 0.017453) {
             data.push(castRay(i));
         }
         return data;
@@ -75,23 +81,28 @@ export const Game = () => {
             //todo: pls optimize this shit
                 const newPlayer = { ...player }
                 if (e.key == 'a') {
-                    // newPlayer.x -= 10;
-                    newPlayer.a -=1;
-                } else if (e.key == 'd') {
-                    // newPlayer.x += 10;
-                    newPlayer.a +=1;
-                } else if (e.key == 's') {
+                    newPlayer.a -=0.1;
+                    if(newPlayer.a <0){
 
-                    const angle = (player.a * Math.PI) / 180;
+                        console.log(newPlayer.a)
+                        newPlayer.a+=2 * Math.PI;
+                    }
+                } else if (e.key == 'd') {
+                
+                    newPlayer.a +=0.1;
+                    if(newPlayer.a >2*Math.PI){
+                        console.log(newPlayer.a)
+                        newPlayer.a-=2 * Math.PI;
+                    }
+                } else if (e.key == 's') {
                     
-                    const dx = 10 * Math.cos(angle);
-                    const dy = 10 * Math.sin(angle);
+                    const dx = 10 * Math.cos(player.a);
+                    const dy = 10 * Math.sin(player.a);
                     newPlayer.x -= dx;
                     newPlayer.y -= dy;
                 } else if (e.key == 'w') {
-                    const angle = (player.a * Math.PI) / 180;
-                    const dx = 10 * Math.cos(angle);
-                    const dy = 10 * Math.sin(angle);
+                    const dx = 10 * Math.cos(player.a);
+                    const dy = 10 * Math.sin(player.a);
                     
                     newPlayer.x += dx;
                     newPlayer.y += dy;

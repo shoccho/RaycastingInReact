@@ -7,7 +7,6 @@ export const Bar = ({ dist, backgroundColor }) => {
         const t = (x - x0) / (x1 - x0);
         return y0 + t * (y1 - y0);
     }
-    console.log(backgroundColor)
 
     return <div
         className="bar"
