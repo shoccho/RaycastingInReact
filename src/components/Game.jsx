@@ -57,9 +57,12 @@ export const Game = () => {
 
     const getRenderData = () => {
         const data = [];
+        const before = new Date();
         for (let i = player.a - 45; i < player.a + 45; i += .5) {
             data.push(castRay(i));
         }
+        const after = new Date();
+        console.log("time took to calculate:", after.getTime() - before.getTime())
         return data;
     }
 
