@@ -1,0 +1,24 @@
+.screen{
+    position: relative;
+    height: 100vh;
+    margin-top: 5rem;
+}
+.ground{
+    position: absolute;
+    top: 25%;
+    left: 0;
+    z-index: -1;
+    height: 80vh;
+    background-color: gray;
+    width: 100vw;
+}
+
+.canvas{
+    display: flex;
+    align-items:center;
+    height: 50%;
+}
+.bar{
+    width: 16px;
+    border: 1px solid darkred;
+}
