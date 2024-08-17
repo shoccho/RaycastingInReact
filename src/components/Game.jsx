@@ -51,7 +51,10 @@ export const Game = () => {
             }
 
             if (map[mapY][mapX] !== 0) {
-                return { distance, color: hslColors[map[mapY][mapX]] };
+                let cameraAngle = player.a - angle;
+                if(cameraAngle < 0 ) cameraAngle+=2*Math.PI;
+                else if(cameraAngle > 2* Math.PI) cameraAngle -= 2* Math.PI;
+                return { distance: distance * Math.cos(cameraAngle) , color: hslColors[map[mapY][mapX]] };
             }
 
             px += dirX * stepSize;
