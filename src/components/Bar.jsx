@@ -11,8 +11,7 @@ export const Bar = ({ dist, backgroundColor }) => {
     return <div
         className="bar"
         style={{
-        height: `${lerp(dist, 0, 600, 400, 0)}px`,
-        backgroundColor: `hsl(${backgroundColor},  100%, ${lerp(dist, 0, 600, 50, 5)}%)`
-            
-        }}></div>
+        height: `${Math.min(400, 100 * 400/dist)}px`,
+        backgroundColor: `hsl(${backgroundColor},  100%, ${lerp(dist, 0, 600, 50, 5)}%)` 
+        }} />
 }
