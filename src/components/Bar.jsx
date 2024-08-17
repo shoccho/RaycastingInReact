@@ -7,11 +7,13 @@ export const Bar = ({ dist, backgroundColor }) => {
         const t = (x - x0) / (x1 - x0);
         return y0 + t * (y1 - y0);
     }
+    console.log(backgroundColor)
 
     return <div
         className="bar"
         style={{
-            height: `${lerp(dist, 0, 600, 400, 0)}px`,
-            backgroundColor
+        height: `${lerp(dist, 0, 600, 400, 0)}px`,
+        backgroundColor: `hsl(${backgroundColor},  100%, ${lerp(dist, 0, 600, 50, 5)}%)`
+            
         }}></div>
 }

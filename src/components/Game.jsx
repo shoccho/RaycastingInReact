@@ -8,21 +8,24 @@ export const Game = () => {
         y: 500,
         a: 0
     });
+                       //red  blue green orange
+    const hslColors = [-1, 0, 240, 120, 30]
     const colors =["black","red", "blue", "green"]
-
-    const WIDTH = 8 * 100;
-    const HEIGHT = 8 * 100;
+    
     const map = [
-        [1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 4, 4, 4, 1, 1],
         [1, 0, 0, 0, 0, 0, 0, 1],
         [1, 0, 0, 0, 0, 0, 0, 1],
-        [3, 0, 0, 0, 0, 0, 0, 2],
-        [3, 0, 0, 0, 0, 0, 0, 2],
-        [3, 0, 0, 0, 0, 0, 0, 2],
+        [3, 0, 0, 0, 2, 2, 2, 2],
+        [3, 0, 0, 0, 3, 0, 0, 2],
+        [3, 0, 0, 0, 3, 0, 0, 2],
         [3, 0, 0, 0, 0, 0, 0, 1],
         [1, 1, 1, 1, 1, 1, 1, 1],
     ];
     const scale = 100;
+
+    const WIDTH = map.length * 100;
+    const HEIGHT = map[0].length * 100;
 
     const castRay = (deg) => {
         const angle = (deg * Math.PI) / 180;
@@ -31,7 +34,7 @@ export const Game = () => {
         let px = player.x;
         let py = player.y;
         const stepSize = 1;
-        const maxDistance = 700;
+        const maxDistance = Math.min(WIDTH, HEIGHT);
 
         for (let distance = 0; distance < maxDistance; distance += stepSize) {
             const mapX = Math.floor(px / scale);
@@ -42,7 +45,7 @@ export const Game = () => {
             }
 
             if (map[mapY][mapX] !== 0) {
-                return {distance, color: colors[map[mapY][mapX]]};
+                return {distance, color: hslColors[map[mapY][mapX]]};
             }
 
             px += dirX * stepSize;
@@ -54,7 +57,7 @@ export const Game = () => {
 
     const getRenderData = () => {
         const data = [];
-        for (let i = player.a - 45; i < player.a + 45; i += 1) {
+        for (let i = player.a - 45; i < player.a + 45; i += .5) {
             data.push(castRay(i));
         }
         return data;
@@ -62,14 +65,14 @@ export const Game = () => {
 
     return (
         <div className="screen" tabIndex="0"
-            onMouseMove={(e) => {
+            // onMouseMove={(e) => {
 
-                // const newPlayer = { ...player }
-                // newPlayer.a += e.movementX / 10;
-                // setPlayer(newPlayer)
-            }}
+            //     const newPlayer = { ...player }
+            //     newPlayer.a += e.movementX / 10;
+            //     setPlayer(newPlayer)
+            // }}
             onKeyDown={(e) => {
-
+            //todo: pls optimize this shit
                 const newPlayer = { ...player }
                 if (e.key == 'a') {
                     // newPlayer.x -= 10;
@@ -86,14 +89,12 @@ export const Game = () => {
                     newPlayer.x -= dx;
                     newPlayer.y -= dy;
                 } else if (e.key == 'w') {
-                    console.log(player.a)
                     const angle = (player.a * Math.PI) / 180;
                     const dx = 10 * Math.cos(angle);
                     const dy = 10 * Math.sin(angle);
                     
                     newPlayer.x += dx;
                     newPlayer.y += dy;
-                    console.log(dx, dy, newPlayer.x, newPlayer.y)
                 }
                 setPlayer(newPlayer)
             }}>
