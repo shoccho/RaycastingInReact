@@ -8,10 +8,10 @@ export const Game = () => {
         y: 500,
         a: 0,
     });
-                       //red  blue green orange
+    //red  blue green orange
     const hslColors = [-1, 0, 240, 120, 30]
-    const colors =["black","red", "blue", "green"]
-    
+    const colors = ["black", "red", "blue", "green"]
+
     const map = [
         [1, 1, 1, 4, 4, 4, 1, 1],
         [1, 0, 0, 0, 0, 0, 0, 1],
@@ -28,12 +28,12 @@ export const Game = () => {
     const HEIGHT = map[0].length * 100;
 
     const castRay = (angle) => {
-        if(angle <0){
+        if (angle < 0) {
             console.log(angle)
-            angle+=2 * Math.PI;
+            angle += 2 * Math.PI;
         }
-        if(angle >2*Math.PI){
-            angle-=2 * Math.PI;
+        if (angle > 2 * Math.PI) {
+            angle -= 2 * Math.PI;
         }
         const dirX = Math.cos(angle);
         const dirY = Math.sin(angle);
@@ -51,7 +51,7 @@ export const Game = () => {
             }
 
             if (map[mapY][mapX] !== 0) {
-                return {distance, color: hslColors[map[mapY][mapX]]};
+                return { distance, color: hslColors[map[mapY][mapX]] };
             }
 
             px += dirX * stepSize;
@@ -65,7 +65,7 @@ export const Game = () => {
         const data = [];
 
         const before = new Date();
-        for (let i = player.a -(45* 0.017453); i < player.a +( 45 * 0.017453); i += 0.017453) {
+        for (let i = player.a - (45 * 0.017453); i < player.a + (45 * 0.017453); i += 0.017453) {
 
             data.push(castRay(i));
         }
@@ -83,24 +83,24 @@ export const Game = () => {
             //     setPlayer(newPlayer)
             // }}
             onKeyDown={(e) => {
-            //todo: pls optimize this shit
+                //todo: pls optimize this shit
                 const newPlayer = { ...player }
                 if (e.key == 'a') {
-                    newPlayer.a -=0.1;
-                    if(newPlayer.a <0){
+                    newPlayer.a -= 0.1;
+                    if (newPlayer.a < 0) {
 
                         console.log(newPlayer.a)
-                        newPlayer.a+=2 * Math.PI;
+                        newPlayer.a += 2 * Math.PI;
                     }
                 } else if (e.key == 'd') {
-                
-                    newPlayer.a +=0.1;
-                    if(newPlayer.a >2*Math.PI){
+
+                    newPlayer.a += 0.1;
+                    if (newPlayer.a > 2 * Math.PI) {
                         console.log(newPlayer.a)
-                        newPlayer.a-=2 * Math.PI;
+                        newPlayer.a -= 2 * Math.PI;
                     }
                 } else if (e.key == 's') {
-                    
+
                     const dx = 10 * Math.cos(player.a);
                     const dy = 10 * Math.sin(player.a);
                     newPlayer.x -= dx;
@@ -108,7 +108,7 @@ export const Game = () => {
                 } else if (e.key == 'w') {
                     const dx = 10 * Math.cos(player.a);
                     const dy = 10 * Math.sin(player.a);
-                    
+
                     newPlayer.x += dx;
                     newPlayer.y += dy;
                 }
