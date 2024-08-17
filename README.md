@@ -1,8 +1,13 @@
-# React + Vite
+A simple raycaster thingy in made in react
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+I made it because it sounded somewhat cool in my head RaycastingInReact 
 
-Currently, two official plugins are available:
+in hindsight its pretty much shit
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Javacript is very slow to calculate vertical and horizontal collisions separately, so my implementation is quite hacky for raycasting although after looking at some tutorials I am quite proud that my go to implementation was faster than what most others do
+> <i> or that's what I think, maybe I can't properly code the raycasting/collision detection with vertical and horizontal separation 😢 <i>
+
+evrything you see on the screen is a div (rendered to make it look like a somewhat 3d world)
+
+![image](https://github.com/user-attachments/assets/d6b78ddb-e807-4f19-958d-3227772a0ea6)
+
