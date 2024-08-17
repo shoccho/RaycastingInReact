@@ -1,14 +1,14 @@
 import { Bar } from "./Bar";
 
-export const Canvas = ({dists}) => {
+export const Canvas = ({data}) => {
     const renderBars = () =>{
-    return dists.map((dist, index) => (
-        <Bar
-            key={index}
-            dist={dist}
-            backgroundColor={"red"}
-        />
-    ));
+        return data.map((d, index) => (
+            <Bar
+                key={index}
+                dist={d.distance}
+                backgroundColor={d.color}
+            />
+        ));
     };
 
     return(

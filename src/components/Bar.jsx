@@ -12,6 +12,6 @@ export const Bar = ({ dist, backgroundColor }) => {
         className="bar"
         style={{
             height: `${lerp(dist, 0, 600, 400, 0)}px`,
-            backgroundColor,
+            backgroundColor
         }}></div>
 }

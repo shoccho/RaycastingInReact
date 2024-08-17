@@ -19,6 +19,6 @@
     height: 50%;
 }
 .bar{
-    width: 16px;
-    border: 1px solid darkred;
+    width: 1.11vw ;
+    /* border: .5px dashed rgb(0, 0, 0); */
 }
