@@ -2,16 +2,10 @@ import { useState } from 'react';
 import { Canvas } from './Canvas';
 import './Game.css';
 
-export const Game = () => {
-    const [player, setPlayer] = useState({
-        x: 500,
-        y: 500,
-        a: 0,
-    });
+export const Game = ({player, setPlayer}) => {
+   
     //red  blue green orange
     const hslColors = [-1, 0, 240, 120, 30]
-    const colors = ["black", "red", "blue", "green", "aqua"]
-
 
     const map = [
         [1, 1, 1, 4, 4, 4, 1, 1],
@@ -24,21 +18,10 @@ export const Game = () => {
         [1, 1, 1, 1, 1, 1, 1, 1],
     ];
 
-    // const floorMap = [
-    //     [1, 1, 1, 4, 4, 4, 1, 1],
-    //     [1, 3, 3, 3, 3, 3, 3, 1],
-    //     [1, 3, 3, 3, 3, 3, 3, 1],
-    //     [3, 3, 3, 3, 3, 2, 2, 2],
-    //     [3, 3, 3, 3, 3, 3, 3, 2],
-    //     [3, 3, 3, 3, 3, 3, 3, 2],
-    //     [3, 3, 3, 3, 3, 3, 3, 1],
-    //     [1, 1, 1, 1, 1, 1, 1, 1],
-    // ];
-
     const scale = 100;
 
-    const WIDTH = map.length * 100;
-    const HEIGHT = map[0].length * 100;
+    const WIDTH = map.length * scale;
+    const HEIGHT = map[0].length * scale;
 
     const castRay = (angle) => {
         if (angle < 0) {
@@ -76,19 +59,19 @@ export const Game = () => {
     }
 
     const getRenderData = () => {
-        const data = [];
-
-        const before = new Date();
-        // fov -45 to 45
-        // 1deg = 0.017453 rad
+        const bdata = [];
         for (let i = player.a - (45 * 0.017453); i < player.a + (45 * 0.017453); i += 0.017453) {
             const d = castRay(i);
-            data.push(d)
+            bdata.push(d)
         }
-        const after = new Date();
-        console.log("time took to calculate:", after.getTime() - before.getTime())
-        return data;
+        return bdata;
     }
+    const [data, setData] =  useState(getRenderData());
+
+    setTimeout(() => {
+        setData(getRenderData());
+    }, 1000/60);
+
     const keyDownHandler = (e) => {
         //todo: pls optimize this shit
         const newPlayer = { ...player }
@@ -100,7 +83,6 @@ export const Game = () => {
         } else if (e.key == 'd') {
             newPlayer.a += 0.1;
             if (newPlayer.a > 2 * Math.PI) {
-                console.log(newPlayer.a)
                 newPlayer.a -= 2 * Math.PI;
             }
         } else if (e.key == 's') {
@@ -118,27 +100,12 @@ export const Game = () => {
         }
         setPlayer(newPlayer)
     }
-    // const renderGround = () =>{
-    //     const mx = player.x/scale;
-    //     const my = player.y/scale;
-    //     const data = getRenderData();
-    //     const heights = [];
-    //     return data.map(d=>(
-    //      <div style={{
-    //         height: `${Math.min(100, 100 * d.distance)}vh`,
-    //         width: '1.11vw',
-    //         backgroundColor:`${colors[floorMap[my][mx]]}`
-    //     }}></div>
-    //     ))
-    // }
-
 
     return (
         <div className="screen" tabIndex="0"
             onKeyDown={keyDownHandler}>
-            <Canvas data={getRenderData()} />
+            <Canvas data={data}/>
             <div className='ground' >
-                {/* {renderGround()} */}
             </div>
         </div>
     );
